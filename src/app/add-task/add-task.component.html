@@ -1,0 +1,96 @@
+<div class="container mt-5">
+    <div class="row mb-3">
+        <div class="col-12">
+            <h1 class="text-center">
+                Create New Task
+            </h1>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-4 col-sm-12">
+            <div class="alert alert-success mb-3" role="alert" *ngIf="editIdIndex == null && showSuccessBanner">
+                Successfully added task into the queue.
+              </div>
+
+              <div class="alert alert-success mb-3" role="alert" *ngIf="editIdIndex != null && showSuccessBanner">
+                Successfully updated the exisiting.
+              </div>
+
+            <form [formGroup]="taskForm" (ngSubmit)="onTaskFormSubmit()">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Task Number</label>
+                    <input type="text" formControlName="name" class="form-control" name="name" id="name"
+                        aria-describedby="emailHelpId"
+                        [ngClass]="{'is-invalid': name.invalid && (name.dirty || name.touched), 
+                        'is-valid': name.valid && (name.dirty || name.touched)}"/>
+                </div>
+
+                <div class="mb-3">
+                    <label for="desc" class="form-label">Description</label>
+                    <textarea 
+                    class="form-control" 
+                    formControlName="desc" 
+                    name="desc" id="desc" rows="3"
+                    [ngClass]="{'is-invalid': desc.invalid && (desc.dirty || desc.touched), 
+                    'is-valid': desc.valid && (desc.dirty || desc.touched)}"
+                    ></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label>Assign To</label>
+                    <ng-multiselect-dropdown 
+                        [placeholder]="''" 
+                        [settings]="dropdownSettings" 
+                        [data]="dropdownList"
+                        [(ngModel)]="selectedItems"
+                        [ngModelOptions]="{standalone: true}">
+                    </ng-multiselect-dropdown>
+                </div>
+
+                <div class="mb-3">
+                    <label for="priority" class="form-label">Priority</label>
+                    <select 
+                    class="form-select" 
+                    formControlName="priority" 
+                    name="priority" id="priority"
+                    [ngClass]="{'is-invalid': priority.invalid && (priority.dirty || priority.touched), 
+                    'is-valid': priority.valid && (priority.dirty || priority.touched)}"
+                    >
+                        <option value="Normal">Normal</option>
+                        <option value="High">High</option>
+                        <option value="Low">Low</option>
+                    </select> 
+                </div>
+
+                <div class="mb-3">
+                    <label for="status" class="form-label">Status</label>
+                    <select 
+                    class="form-select" 
+                    formControlName="status" 
+                    name="status" id="status"
+                    [ngClass]="{'is-invalid': status.invalid && (status.dirty || status.touched), 
+                    'is-valid': status.valid && (status.dirty || status.touched)}"
+                    >
+                        <option value="Todo">Todo</option>
+                        <option value="In-progress">In-progress</option>
+                        <option value="Completed">Completed</option>
+                    </select> 
+                </div>
+
+
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-success" [disabled]="!taskForm.valid">
+                        Submit
+                    </button>
+                    <a class="btn btn-primary" routerLink="/">
+                        Cancel
+                    </a>
+                    
+                  </div>
+
+            </form>
+
+
+        </div>
+    </div>
+</div>
